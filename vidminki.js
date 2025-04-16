@@ -13,7 +13,7 @@ async function run() {
     //початок
     const cellStart = "A1";
     //кінець 
-    const cellEnd = "A112"
+    const cellEnd = "A5"
 
     const rangeCell = sheet1.getRange(`${cellStart}:${cellEnd}`);
     rangeCell.load("values");
@@ -38,7 +38,9 @@ async function run() {
       await context.sync();
       //console.log(result)
 
-      sheet2.getRange(`C${i + 1}`).values = [[result]];
+      //в яку клітинку вставити нове значення (для іншого листа)
+      const newCellSheet = "C";
+      sheet2.getRange(`${newCellSheet}${i + 1}`).values = [[result]];
       await context.sync();
     }
 
@@ -55,17 +57,6 @@ async function run() {
 
       return `${output.familyName} ${output.givenName} ${output.patronymicName}`;
     }
-
-    /*  const gender = await shevchenko.detectGender(anthroponym); // "feminine"
-    if (gender == null) {
-      throw new Error("Failed to detect grammatical gender.");
-    }
-
-    const input = { ...anthroponym, gender };
-
-    const output = await shevchenko.inVocative(input);
-
-    console.log(output); */
 
     await context.sync();
   });
